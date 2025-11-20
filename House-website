@@ -1,0 +1,111 @@
+flat_rent = 200000
+flat_buy = 600000
+bungalow_rent = 300000
+bungalow_buy = 900000
+semi_det_rent = 400000
+semi_det_buy = 1200000
+duplex_rent= 500000
+duplex_buy = 1500000
+penthouse_rent= 600000
+penthouse_buy = 1800000
+mansion_rent = 800000
+mansion_buy = 2400000
+
+
+import time
+def welcome():
+    username = input("Enter username: ").capitalize()
+    password = input("Enter password: ").lower()
+    password1 = input("Enter password again: ").lower()
+    if password == password1:
+        time.sleep(1)
+        print(f"Welcome {username}! Let's search for the place you'll call home.")
+    else:
+        time.sleep(2)
+        print("Uh oh! The passwords don't match. Please try again.")
+        welcome()
+
+
+
+def type_select():
+    global price
+    house_dict = {
+        1: "Flat",
+        2: "Bungalow",
+        3: "Semi-detached duplex",
+        4: "Duplex",
+        5: "Penthouse",
+        6: "Mansion"
+        }
+
+    # for line in house_dict:
+    time.sleep(1)
+    print(house_dict)
+    time.sleep(4)
+    house_type = int(input("Please input the number corresponding to the type of building you want: "))
+    if house_type in house_dict.keys():
+        print(f"Okay! You're looking for a {house_dict[house_type]}.")
+        time.sleep(1)
+        confirm = input("Is that correct? (yes/no): ").lower()
+        if confirm == "yes":
+            time.sleep(1)
+            print(f"Great! Now let's select a {house_dict[house_type]}.")
+        else:
+            print ("Back to main menu.")
+            type_select()
+    else:
+        print("Please enter a valid number.")
+        type_select()
+
+    bed_number = int(input("How many bedrooms do you want?: "))
+    if house_type == 1:
+        price = bed_number * flat_rent
+    elif house_type == 2:
+        price = bed_number * bungalow_rent
+    elif house_type == 3:
+        price = bed_number * semi_det_rent
+    elif house_type == 4:
+        price = bed_number * duplex_rent
+    elif house_type == 5:
+        price = bed_number * penthouse_rent
+    elif house_type == 6:
+        price = bed_number * mansion_rent
+
+
+    print(f"The price will be N{price}")
+    time.sleep(2)
+
+
+    def checkout():
+        check = input("Would you like to proceed?(yes/no): ").lower()
+        if check == "yes":
+            card = input("Debit or credit? ").lower()
+            if card == "credit" or "debit":
+                details = input("Please enter your card details: ")
+                time.sleep(1)
+                validate = input(f"Please confirm your card details: {details}. Is that correct? (yes/no): ").lower()
+                time.sleep(2)
+                if validate == "yes":
+                    pay = input("Are you ready to pay?(yes/no): ").lower()
+                    if pay == "yes":
+                        time.sleep(1)
+                        print(f"Thank you! Your card details were successfully validated. We hope you love your home.")
+                    else:
+                        print("Okay, come back soon.")
+
+                else:
+                    checkout()
+
+            else:
+                checkout()
+
+        else:
+            print("Please come back again soon. ")
+    checkout()
+
+
+def main(): 
+  welcome()
+  type_select()
+
+main()
